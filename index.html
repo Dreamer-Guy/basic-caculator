@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <link href="./src/output.css" rel="stylesheet">
+    <script>
+        function compute(form){
+            if(!form.var1.value || !form.var2.value){
+                alert("Please fill in all fields");
+                return;
+            }
+            if(!form.operation.value){
+                alert("Please select an operation");
+                return;
+            }
+            if(isNaN(parseFloat(form.var1.value)) || isNaN(parseFloat(form.var2.value))){
+                alert("Please enter a valid number");
+                return;
+            }
+            if(form.operation.value == "divide" && parseFloat(form.var2.value) == 0){
+                alert("Cannot divide by zero");
+                return;
+            }
+            let res;
+            switch(form.operation.value){
+                case "add":
+                    res=(parseFloat(form.var1.value) + parseFloat(form.var2.value));
+                    break;
+                case "substract":
+                    res=(parseFloat(form.var1.value) - parseFloat(form.var2.value));
+                    break;
+                case "multiple":
+                    res=(parseFloat(form.var1.value) * parseFloat(form.var2.value));
+                    break;
+                case "divide":
+                    res=(parseFloat(form.var1.value) / parseFloat(form.var2.value));
+                    break;
+            }
+            result.value = res;
+        }   
+    </script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Simple Calculator</h1>
+        <form onsubmit="event.preventDefault(); compute(this);" class="space-y-4">
+            <div class="border-1 border-gray-600">
+                <label class="block text-gray-700">Variable 1:</label>
+                <input name="var1" type="text" class="mt-1 block w-full border-2 border-slate-600 rounded-md shadow-sm p-3"/>
+            </div>
+            <div>
+                <label class="block text-gray-700">Variable 2:</label>
+                <input name="var2" type="text" class="mt-1 block w-full border-2 border-slate-600 rounded-md shadow-sm p-3"/>
+            </div>
+            <div>
+                <label class="block text-gray-700">Operation:</label>
+                <div class="mt-2 space-y-2">
+                    <div>
+                        <input type="radio" id="add" name="operation" value="add" class="mr-2">
+                        <label for="add">Add</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="substract" name="operation" value="substract" class="mr-2">
+                        <label for="substract">Substract</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="multiple" name="operation" value="multiple" class="mr-2">
+                        <label for="multiple">Multiple</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="divide" name="operation" value="divide" class="mr-2">
+                        <label for="divide">Divide</label>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-row items-center">
+                <label>Result:</label>
+                <textarea class="mt-1 w-full border-gray-300 rounded-md shadow-sm text-center font-semibold" readonly
+                id="result"></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Compute</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
